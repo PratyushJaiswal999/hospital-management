@@ -1,10 +1,10 @@
-﻿# HealthCare Appointment & Follow-up Manager
+﻿# 🏥 HealthCare Appointment & Follow-up Manager
 
 > **Full-stack production-grade healthcare scheduling platform** built with Node.js, React, PostgreSQL, Redis, and Google Gemini AI. Designed and developed as a placement project demonstrating real-world backend architecture, queue-driven asynchronous workflows, AI integration, and modern UI/UX engineering.
 
 ---
 
-## Table of Contents
+## 📋 Table of Contents
 
 1. [Project Overview](#project-overview)
 2. [Key Features](#key-features)
@@ -23,13 +23,13 @@
 
 ---
 
-## Project Overview
+## 📖 Project Overview
 
 The **HealthCare Appointment & Follow-up Manager** is a full-stack web application that digitizes and streamlines the patient-doctor appointment lifecycle — from booking and scheduling to AI-generated pre/post-visit summaries, medication reminders, and calendar synchronization.
 
 The project was built to simulate a real production healthcare scheduling system, incorporating industry-standard patterns such as transactional double-booking prevention, JWT-based authentication, background job processing, and graceful AI fallbacks.
 
-### Problem Being Solved
+### 🎯 Problem Being Solved
 
 Healthcare scheduling in many clinics is still paper-based or fragmented across spreadsheets and phone calls. This platform provides:
 - **Patients** — instant doctor discovery, self-service booking, appointment history, AI-powered visit summaries, and medication reminder management.
@@ -38,9 +38,9 @@ Healthcare scheduling in many clinics is still paper-based or fragmented across 
 
 ---
 
-## Key Features
+## 🌟 Key Features
 
-### Patient Portal
+### 👤 Patient Portal
 - **Doctor Discovery** — Search by specialisation with real-time availability computation
 - **Slot Booking with Hold** — 5-minute slot hold prevents double-booking races, followed by confirmation with symptom submission
 - **AI Pre-Visit Summary** — Google Gemini analyses symptoms and returns urgency level, chief complaint, and suggested doctor questions
@@ -49,17 +49,17 @@ Healthcare scheduling in many clinics is still paper-based or fragmented across 
 - **Medication Reminders** — Set daily reminders with dosage information; delivered via email
 - **Google Calendar Sync** — Connect Google Calendar to auto-create/update/delete appointment events
 
-### Doctor Portal
+### 🩺 Doctor Portal
 - **Daily Schedule View** — Chronologically sorted list of confirmed appointments for today
 - **Clinical Note Submission** — Structured notes with prescription (drug, dose, frequency, duration)
 - **Appointment History** — Access full appointment records including AI summaries
 
-### Admin Panel
+### 🔑 Admin Panel
 - **Doctor CRUD** — Create, read, update, and manage doctor profiles with working hours and specialisations
 - **Leave Management** — Add/remove leave days; system automatically cancels and notifies affected patients
 - **Notification Audit** — View failed notification jobs for operational visibility
 
-### Cross-Cutting Capabilities
+### ⚙️ Cross-Cutting Capabilities
 - **Dark / Light Theme Toggle** — System-wide theme persisted in local storage
 - **Rate Limiting** — Configurable per-route middleware (15 req/min on auth, 200 req/15 min on API)
 - **Background Job Processing** — BullMQ queues with retry logic for email, reminders, AI, and hold expiry
@@ -67,7 +67,7 @@ Healthcare scheduling in many clinics is still paper-based or fragmented across 
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 | Layer | Technology | Purpose |
 |---|---|---|
@@ -86,7 +86,7 @@ Healthcare scheduling in many clinics is still paper-based or fragmented across 
 
 ---
 
-## System Architecture
+## 🏗️ System Architecture
 
 ```
 +--------------------------------------------------------+
@@ -125,7 +125,7 @@ Healthcare scheduling in many clinics is still paper-based or fragmented across 
 
 ---
 
-## Database Schema
+## 🗄️ Database Schema
 
 ```mermaid
 erDiagram
@@ -187,7 +187,7 @@ erDiagram
 
 ---
 
-## Security Design
+## 🛡️ Security Design
 
 ### Authentication
 - **JWT access tokens** (short-lived) + **refresh tokens** (rotated on use)
@@ -214,7 +214,7 @@ The system guarantees that no two patients can book the same doctor slot simulta
 
 ---
 
-## AI Integration
+## 🤖 AI Integration
 
 ### Google Gemini 2.5 Flash (Free Tier)
 
@@ -248,7 +248,7 @@ Do not add any medical advice not present in the notes.
 
 ---
 
-## API Reference
+## 🔌 API Reference
 
 ### Auth
 
@@ -300,7 +300,7 @@ Do not add any medical advice not present in the notes.
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -373,7 +373,7 @@ Open http://localhost:5173 in your browser.
 
 ---
 
-## Seed Credentials
+## 🔐 Seed Credentials
 
 | Role | Email | Password |
 |---|---|---|
@@ -384,7 +384,7 @@ Open http://localhost:5173 in your browser.
 
 ---
 
-## Google Calendar Setup
+## 📅 Google Calendar Setup
 
 1. Go to console.cloud.google.com and create a new project
 2. Enable the **Google Calendar API**
@@ -405,7 +405,7 @@ GOOGLE_REDIRECT_URI=http://localhost:4000/auth/google/callback
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 healthcare-manager/
@@ -451,7 +451,7 @@ healthcare-manager/
 
 ---
 
-## Engineering Highlights
+## 💡 Engineering Highlights
 
 ### 1. Concurrency-Safe Slot Booking
 The booking system uses a 5-layer defence against race conditions, making it suitable for production use with multiple simultaneous users. Each layer independently prevents double-booking, so even if one mechanism fails, the others act as a safety net.
@@ -479,7 +479,7 @@ A custom Airbnb-inspired design system was implemented using plain CSS variables
 
 ---
 
-## Known Limitations & Future Work
+## ⚠️ Known Limitations & Future Work
 
 | Limitation | Planned Fix |
 |---|---|
@@ -492,6 +492,6 @@ A custom Airbnb-inspired design system was implemented using plain CSS variables
 
 ---
 
-## Author
+## 👤 Author
 
 Built as a placement/internship submission demonstrating full-stack engineering capabilities across backend architecture, database design, cloud service integration, asynchronous queue systems, and modern frontend UI/UX development.
