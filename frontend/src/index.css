@@ -1,0 +1,686 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-canvas: #ffffff;
+    --color-ink: #222222;
+    --color-cloud: #f7f7f7;
+    --color-fog: #dddddd;
+    --color-steel: #c1c1c1;
+    --color-graphite: #6a6a6a;
+    --color-charcoal: #3f3f3f;
+    --color-primary: #ff385c;
+    --color-primary-soft: #ffd1da;
+    --color-primary-active: #e00b41;
+  }
+
+  .dark {
+    --color-canvas: #09090b; /* Matte jet black background */
+    --color-ink: #f4f4f5; /* Off-white text */
+    --color-cloud: #18181b; /* Charcoal/Zinc-900 card surface (lighter than background) */
+    --color-fog: #27272a; /* Zinc-800 divider/hairline border */
+    --color-steel: #3f3f46; /* Zinc-700 active borders */
+    --color-graphite: #a1a1aa; /* Zinc-400 muted text */
+    --color-charcoal: #d4d4d8; /* Zinc-300 body text */
+    --color-primary: #ff385c; /* Rausch Red */
+    --color-primary-soft: #270e12; /* Dark red background tint */
+    --color-primary-active: #ff5a79;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Force override primary utility classes to use CSS variables and bypass tailwind caching */
+  .bg-primary {
+    background-color: var(--color-primary) !important;
+  }
+  .text-primary {
+    color: var(--color-primary) !important;
+  }
+  .border-primary {
+    border-color: var(--color-primary) !important;
+  }
+  .bg-primary-soft {
+    background-color: var(--color-primary-soft) !important;
+  }
+  .border-primary-soft {
+    border-color: var(--color-primary-soft) !important;
+  }
+  .text-primary-soft {
+    color: var(--color-primary-soft) !important;
+  }
+  body {
+    @apply font-sans bg-canvas text-ink min-h-screen text-body-apple font-normal;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss03", "cv02", "cv11";
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-feature-settings: "ss03", "cv02", "cv11";
+  }
+}
+
+@layer components {
+  /* ─── Apple Typography Custom Tokens ─── */
+  .text-hero-display {
+    font-size: 56px;
+    line-height: 1.07;
+    letter-spacing: -0.28px;
+    font-weight: 600;
+  }
+  .text-display-lg {
+    font-size: 40px;
+    line-height: 1.10;
+    letter-spacing: 0px;
+    font-weight: 600;
+  }
+  .text-display-md {
+    font-size: 34px;
+    line-height: 1.47;
+    letter-spacing: -0.374px;
+    font-weight: 600;
+  }
+  .text-lead {
+    font-size: 28px;
+    line-height: 1.14;
+    letter-spacing: 0.196px;
+    font-weight: 400;
+  }
+  .text-lead-airy {
+    font-size: 24px;
+    line-height: 1.5;
+    letter-spacing: 0px;
+    font-weight: 300;
+  }
+  .text-tagline {
+    font-size: 21px;
+    line-height: 1.19;
+    letter-spacing: 0.231px;
+    font-weight: 600;
+  }
+  .text-body-strong {
+    font-size: 17px;
+    line-height: 1.24;
+    letter-spacing: -0.374px;
+    font-weight: 600;
+  }
+  .text-body-apple {
+    font-size: 17px;
+    line-height: 1.44;
+    letter-spacing: -0.374px;
+    font-weight: 400;
+  }
+  .text-dense-link {
+    font-size: 17px;
+    line-height: 2.41;
+    letter-spacing: 0px;
+    font-weight: 400;
+  }
+  .text-caption {
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.224px;
+    font-weight: 400;
+  }
+  .text-caption-strong {
+    font-size: 14px;
+    line-height: 1.29;
+    letter-spacing: -0.224px;
+    font-weight: 600;
+  }
+  .text-button-large {
+    font-size: 18px;
+    line-height: 1.0;
+    letter-spacing: 0px;
+    font-weight: 300;
+  }
+  .text-button-utility {
+    font-size: 14px;
+    line-height: 1.29;
+    letter-spacing: -0.224px;
+    font-weight: 400;
+  }
+  .text-fine-print {
+    font-size: 12px;
+    line-height: 1.0;
+    letter-spacing: -0.12px;
+    font-weight: 400;
+  }
+  .text-micro-legal {
+    font-size: 10px;
+    line-height: 1.3;
+    letter-spacing: -0.08px;
+    font-weight: 400;
+  }
+  .text-nav-link {
+    font-size: 12px;
+    line-height: 1.0;
+    letter-spacing: -0.12px;
+    font-weight: 400;
+  }
+
+  /* ─── Buttons ─────────────────────────────────────────────────── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-normal transition-all duration-150 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed text-button-utility;
+    border-radius: 4px;
+    height: 44px;
+    padding: 0 24px;
+  }
+  /* HP Electric Blue primary */
+  .btn-primary {
+    @apply btn bg-primary text-white;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--color-primary-active);
+  }
+  /* Black filled */
+  .btn-ink {
+    @apply btn bg-ink text-white;
+  }
+  .btn-ink:hover:not(:disabled) {
+    background-color: #292929;
+  }
+  /* Outlined blue */
+  .btn-outline {
+    @apply btn bg-canvas text-primary border border-primary;
+  }
+  .btn-outline:hover:not(:disabled) {
+    @apply bg-primary-soft;
+  }
+  /* Outlined ink */
+  .btn-secondary {
+    @apply btn bg-canvas text-ink border border-ink;
+  }
+  .btn-secondary:hover:not(:disabled) {
+    @apply bg-cloud;
+  }
+  /* Danger / destructive */
+  .btn-danger {
+    @apply btn bg-bloom-deep text-white border border-bloom-deep;
+  }
+  .btn-danger:hover:not(:disabled) {
+    background-color: #8f1e22;
+  }
+  /* Success (complete appointment) */
+  .btn-success {
+    @apply btn bg-ink text-white;
+  }
+  .btn-success:hover:not(:disabled) {
+    background-color: #292929;
+  }
+
+  /* ─── Inputs ──────────────────────────────────────────────────── */
+  .input {
+    @apply w-full bg-canvas text-ink border border-steel placeholder-graphite transition-all duration-150 text-body-apple;
+    border-radius: 4px;
+    padding: 12px 16px;
+    height: 44px;
+  }
+  .input:focus {
+    outline: none;
+    border-width: 2px;
+    border-color: #1a1a1a;
+  }
+  textarea.input {
+    height: auto;
+    min-height: 120px;
+    resize: vertical;
+  }
+  select.input {
+    cursor: pointer;
+  }
+  .label {
+    @apply block text-charcoal mb-1 text-button-utility font-normal;
+  }
+
+  /* ─── Cards ───────────────────────────────────────────────────── */
+  /* Standard product card — white, 16px radius, Soft Lift */
+  .card {
+    @apply bg-canvas rounded-xl p-6;
+    box-shadow: 0 2px 8px rgba(26, 26, 26, 0.08);
+  }
+  /* Feature card — cloud background */
+  .card-feature {
+    @apply bg-cloud rounded-xl p-8;
+  }
+  /* Dark ink slab */
+  .card-ink {
+    @apply bg-ink text-white rounded-xl p-8;
+  }
+
+  /* ─── Badges ──────────────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center text-nav-link font-semibold;
+    border-radius: 8px;
+    padding: 4px 10px;
+  }
+  /* Status badges — HP palette (no dark-mode green/amber) */
+  .badge-green  { @apply badge bg-primary-soft text-primary-deep; }
+  .badge-blue   { @apply badge bg-primary text-white; }
+  .badge-yellow { @apply badge bg-fog text-charcoal; }
+  .badge-red    { @apply badge bg-bloom-coral text-white; }
+  .badge-slate  { @apply badge bg-fog text-charcoal; }
+  .badge-ink    { @apply badge bg-ink text-white; }
+  /* Pill variant (9999px radius) */
+  .badge-pill   {
+    @apply inline-flex items-center font-medium bg-ink text-white text-nav-link;
+    border-radius: 9999px;
+    padding: 4px 12px;
+  }
+  /* Sale coral tag */
+  .badge-sale   {
+    @apply inline-flex items-center font-bold bg-bloom-coral text-white text-nav-link;
+    border-radius: 3px;
+    padding: 3px 8px;
+  }
+
+  /* ─── Loading spinner ─────────────────────────────────────────── */
+  .spinner {
+    @apply w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin;
+  }
+
+  /* ─── HP Utility strip ────────────────────────────────────────── */
+  .hp-utility-strip {
+    @apply bg-ink text-white text-nav-link;
+    height: 36px;
+    padding: 0 32px;
+  }
+
+  /* ─── Chevron decoration ──────────────────────────────────────── */
+  .hp-chevron {
+    @apply absolute bg-primary;
+    clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+  }
+
+  /* ─── Button Login Premium ────────────────────────────────────── */
+  .btn-login {
+    @apply inline-flex items-center justify-center gap-2 font-normal transition-all duration-300 ease-in-out focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed text-[15px] bg-primary text-white active:scale-95;
+    border-radius: 4px;
+    height: 48px;
+    padding: 0 24px;
+    box-shadow: 0 4px 6px rgba(255, 56, 92, 0.1);
+  }
+  .btn-login:hover:not(:disabled) {
+    background-color: var(--color-primary-active);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 16px rgba(255, 56, 92, 0.25);
+  }
+  .btn-login:active:not(:disabled) {
+    transform: translateY(0px) scale(0.98);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ─── Global Dark Mode Custom Overrides ─── */
+.dark body,
+.dark html,
+.dark #root {
+  background-color: var(--color-canvas) !important;
+  color: var(--color-ink) !important;
+}
+
+/* Redefining Tailwind/Vite components and cards */
+.dark .card,
+.dark .bg-white,
+.dark .bg-canvas {
+  background-color: var(--color-cloud) !important; /* Slightly lighter cloud slate for cards */
+  color: var(--color-ink) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Target inline-styled white doctor cards in search grid */
+.dark div[style*="background-color: rgb(255, 255, 255)"],
+.dark div[style*="background-color: #ffffff"],
+.dark div[style*="background-color:#ffffff"],
+.dark div[style*="background-color:ffffff"] {
+  background-color: var(--color-cloud) !important; /* Slate 800 */
+  color: var(--color-ink) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25) !important;
+}
+
+.dark .bg-cloud {
+  background-color: var(--color-canvas) !important; /* Invert outer container to Canvas */
+}
+
+/* Base text color overrides */
+.dark .text-ink,
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: var(--color-ink) !important;
+}
+
+.dark .text-graphite,
+.dark p,
+.dark span {
+  color: var(--color-graphite) !important;
+}
+
+/* Specific text overrides to maintain readability */
+.dark .text-primary,
+.dark span[class*="text-primary"],
+.dark p[class*="text-primary"] {
+  color: #ff5a79 !important; /* Airbnb light Rausch for text readability */
+}
+
+.dark .text-charcoal {
+  color: var(--color-charcoal) !important;
+}
+
+.dark .border-fog,
+.dark .border-steel,
+.dark hr {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* React inline style matching for gray background page wrappers */
+.dark div[style*="background-color: #f7f7f7"],
+.dark div[style*="background-color: rgb(247, 247, 247)"],
+.dark div[style*="background-color:#f7f7f7"],
+.dark div[style*="background-color:f7f7f7"] {
+  background-color: var(--color-canvas) !important; /* Base Slate 900 */
+}
+
+/* Inputs fields override in dark mode */
+.dark .input,
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: rgba(15, 23, 42, 0.6) !important; /* Semi-transparent slate */
+  color: #f8fafc !important; /* Clear slate white text */
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+}
+
+.dark .input::placeholder,
+.dark input::placeholder {
+  color: #64748b !important; /* Slate 500 placeholder (was dark grey) */
+}
+
+.dark .input:focus,
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.25) !important;
+}
+
+/* Specialisation Tag/Pills override (Cardiology, etc. in search header) */
+.dark button[style*="background-color: rgb(255, 255, 255)"],
+.dark button[style*="background-color: #ffffff"],
+.dark button[style*="background-color:#ffffff"],
+.dark button[style*="backgroundColor: '#ffffff'"] {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: #cbd5e1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.dark button[style*="background-color: rgb(255, 255, 255)"]:hover,
+.dark button[style*="background-color: #ffffff"]:hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-color: #ff385c !important;
+}
+
+/* Badge and specific layout container color fixes */
+.dark span[style*="background-color: #f7f7f7"] {
+  background-color: var(--color-cloud) !important;
+  color: var(--color-charcoal) !important;
+}
+
+/* Buttons color fixes in dark mode */
+.dark .btn-outline {
+  background-color: transparent !important;
+  color: #ff5a79 !important;
+  border: 1px solid rgba(255, 90, 121, 0.4) !important;
+}
+
+.dark .btn-outline:hover {
+  background-color: rgba(255, 90, 121, 0.12) !important;
+  border-color: #ff5a79 !important;
+}
+
+.dark .btn-secondary {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.dark .btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.dark .btn-primary {
+  background-color: var(--color-primary) !important;
+  color: #ffffff !important;
+}
+
+.dark .btn-primary:hover {
+  background-color: var(--color-primary-active) !important;
+}
+
+/* Navbar / header specific adjustments */
+.dark header,
+.dark nav {
+  background-color: var(--color-cloud) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark header .bg-ink,
+.dark nav .bg-ink {
+  background-color: #09090b !important; /* Matte jet black to keep utility bar dark */
+}
+
+.dark header .text-white,
+.dark nav .text-white {
+  color: #f8fafc !important;
+}
+
+.dark a:hover,
+.dark button:hover {
+  filter: brightness(1.25);
+}
+
+.dark .hp-chevron {
+  opacity: 0.15;
+}
+
+/* ─── Doctor Search Panel Premium Styles ─── */
+.doctor-search-page-bg {
+  background-color: #f8fafc; /* Soft slate-50 background */
+  min-height: 100vh;
+  transition: background-color 0.2s ease;
+}
+.dark .doctor-search-page-bg {
+  background-color: var(--color-canvas) !important; /* Matte jet black */
+}
+
+.doctor-search-hero {
+  background: linear-gradient(135deg, #fff0f2 0%, #f7f7f7 100%) !important; /* Airbnb soft Rausch-tinted gradient */
+  border-bottom: 1px solid #ebebeb !important;
+  transition: all 0.2s ease;
+}
+.dark .doctor-search-hero {
+  background: linear-gradient(135deg, #200f12 0%, #09090b 100%) !important; /* Charcoal black and warm dark red gradient */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.doctor-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+  padding: 24px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.doctor-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 12px 24px -4px rgba(255, 56, 92, 0.12), 0 4px 12px -2px rgba(255, 56, 92, 0.06) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.dark .doctor-card {
+  background-color: var(--color-cloud) !important; /* Slate-800 */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+}
+.dark .doctor-card:hover {
+  transform: translateY(-6px) !important;
+  border-color: #ff385c !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 56, 92, 0.2) !important;
+}
+
+/* ─── Global Priority Style Overrides (Root Level) ─── */
+.btn-primary,
+button.btn-primary {
+  background-color: var(--color-primary) !important;
+  color: #ffffff !important;
+}
+
+.btn-primary:hover:not(:disabled),
+button.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-primary-active) !important;
+}
+
+.btn-login,
+button.btn-login {
+  background-color: var(--color-primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 6px rgba(255, 56, 92, 0.1) !important;
+}
+
+.btn-login:hover:not(:disabled),
+button.btn-login:hover:not(:disabled) {
+  background-color: var(--color-primary-active) !important;
+  box-shadow: 0 8px 16px rgba(255, 56, 92, 0.25) !important;
+}
+
+.text-primary {
+  color: var(--color-primary) !important;
+}
+
+.border-primary {
+  border-color: var(--color-primary) !important;
+}
+
+.bg-primary-soft {
+  background-color: var(--color-primary-soft) !important;
+}
+
+.border-primary-soft {
+  border-color: var(--color-primary-soft) !important;
+}
+
+.text-primary-soft {
+  color: var(--color-primary-soft) !important;
+}
+
+.btn-outline {
+  color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.btn-outline:hover:not(:disabled) {
+  background-color: var(--color-primary-soft) !important;
+  border-color: var(--color-primary-active) !important;
+}
+
+/* Redesigned Card Button (Reduces raw red storm, highlights red only on hover) */
+.doctor-card-btn {
+  background-color: var(--color-ink) !important;
+  color: var(--color-canvas) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.doctor-card-btn:hover {
+  background-color: var(--color-primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(255, 56, 92, 0.2) !important;
+}
+
+.dark .doctor-card-btn:hover {
+  box-shadow: 0 4px 12px rgba(255, 56, 92, 0.4) !important;
+}
+
+/* ─── Premium Status Badges ─── */
+.badge-confirmed,
+.badge-held {
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 9999px !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  background-color: rgba(59, 130, 246, 0.08) !important;
+  color: #3b82f6 !important;
+  display: inline-block !important;
+}
+.dark .badge-confirmed,
+.dark .badge-held {
+  color: #60a5fa !important;
+}
+
+.badge-completed {
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 9999px !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+  background-color: rgba(16, 185, 129, 0.08) !important;
+  color: #10b981 !important;
+  display: inline-block !important;
+}
+.dark .badge-completed {
+  color: #34d399 !important;
+}
+
+.badge-cancelled {
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 9999px !important;
+  border: 1px solid rgba(239, 68, 68, 0.2) !important;
+  background-color: rgba(239, 68, 68, 0.08) !important;
+  color: #ef4444 !important;
+  display: inline-block !important;
+}
+.dark .badge-cancelled {
+  color: #f87171 !important;
+}
+
+.badge-rescheduled {
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 9999px !important;
+  border: 1px solid rgba(245, 158, 11, 0.2) !important;
+  background-color: rgba(245, 158, 11, 0.08) !important;
+  color: #f59e0b !important;
+  display: inline-block !important;
+}
+.dark .badge-rescheduled {
+  color: #fbbf24 !important;
+}

@@ -1,0 +1,203 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum Role {
+  PATIENT
+  DOCTOR
+  ADMIN
+}
+
+enum AppointmentStatus {
+  HELD
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  RESCHEDULED
+}
+
+enum NotificationChannel {
+  EMAIL
+  CALENDAR
+}
+
+enum NotificationType {
+  BOOKING_CONFIRM
+  REMINDER
+  CANCELLATION
+  LEAVE_CONFLICT
+  MEDICATION_REMINDER
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+  RETRYING
+}
+
+// ─── Models ──────────────────────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(PATIENT)
+  phone        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  doctorProfile       DoctorProfile?
+  patientAppointments Appointment[]        @relation("PatientAppointments")
+  notifications       Notification[]
+  googleCalendarToken GoogleCalendarToken?
+  medicationReminders MedicationReminder[] @relation("PatientReminders")
+  auditLogs           AuditLog[]
+}
+
+model DoctorProfile {
+  id                  String   @id @default(uuid())
+  userId              String   @unique
+  specialisation      String
+  workingHoursStart   String // "09:00"
+  workingHoursEnd     String // "17:00"
+  slotDurationMinutes Int      @default(30)
+  workingDays         Int[] // [1,2,3,4,5] = Mon–Fri (0=Sun)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  // Relations
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  leaves       DoctorLeave[]
+  appointments Appointment[] @relation("DoctorAppointments")
+
+  @@index([specialisation])
+}
+
+model DoctorLeave {
+  id        String   @id @default(uuid())
+  doctorId  String
+  date      DateTime @db.Date
+  reason    String?
+  createdAt DateTime @default(now())
+
+  // Relations
+  doctor DoctorProfile @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@unique([doctorId, date])
+}
+
+model Appointment {
+  id                   String            @id @default(uuid())
+  patientId            String
+  doctorId             String
+  slotStart            DateTime
+  slotEnd              DateTime
+  status               AppointmentStatus @default(HELD)
+  symptomText          String?           @db.Text
+  preVisitSummary      Json?
+  doctorNotes          String?           @db.Text
+  prescription         Json?
+  postVisitSummary     String?           @db.Text
+  googleEventIdPatient String?
+  googleEventIdDoctor  String?
+  holdExpiresAt        DateTime?
+  idempotencyKey       String?           @unique
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+
+  // Relations
+  patient             User                 @relation("PatientAppointments", fields: [patientId], references: [id])
+  doctor              DoctorProfile        @relation("DoctorAppointments", fields: [doctorId], references: [id])
+  notifications       Notification[]
+  medicationReminders MedicationReminder[]
+
+  // Indexes — partial unique index for double-booking prevention added via migration SQL
+  @@index([doctorId, slotStart])
+  @@index([patientId])
+  @@index([status])
+}
+
+model Notification {
+  id            String              @id @default(uuid())
+  appointmentId String?
+  userId        String
+  channel       NotificationChannel
+  type          NotificationType
+  payload       Json
+  status        NotificationStatus  @default(PENDING)
+  attempts      Int                 @default(0)
+  lastError     String?             @db.Text
+  scheduledFor  DateTime
+  sentAt        DateTime?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  // Relations
+  user        User         @relation(fields: [userId], references: [id])
+  appointment Appointment? @relation(fields: [appointmentId], references: [id])
+
+  @@index([status, scheduledFor])
+  @@index([userId])
+}
+
+model MedicationReminder {
+  id              String   @id @default(uuid())
+  appointmentId   String
+  patientId       String
+  drug            String
+  dose            String
+  scheduledTime   DateTime
+  frequencyPerDay Int
+  remainingDays   Int
+  active          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  appointment Appointment @relation(fields: [appointmentId], references: [id])
+  patient     User        @relation("PatientReminders", fields: [patientId], references: [id])
+
+  @@index([active, scheduledTime])
+}
+
+model GoogleCalendarToken {
+  id           String   @id @default(uuid())
+  userId       String   @unique
+  accessToken  String   @db.Text
+  refreshToken String   @db.Text
+  expiryDate   DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    String?
+  action     String
+  entityType String
+  entityId   String?
+  meta       Json?
+  createdAt  DateTime @default(now())
+
+  // Relations
+  actor User? @relation(fields: [actorId], references: [id])
+
+  @@index([entityType, entityId])
+  @@index([actorId])
+}

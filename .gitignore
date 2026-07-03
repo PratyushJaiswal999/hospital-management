@@ -1,0 +1,68 @@
+# ── Node & Package Manager Dependencies ──
+node_modules/
+jspm_packages/
+.pnp
+.pnp.js
+
+# ── Build Outputs & Caches ──
+dist/
+dist-ssr/
+build/
+out/
+.turbo/
+.cache/
+.vite/
+.eslintcache
+*.tsbuildinfo
+*.suo
+
+# ── Environment & Secrets ──
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+backend/.env
+frontend/.env
+
+# ── Logs & Debugging ──
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ── Database & Prisma ──
+*.db
+*.db-journal
+*.sqlite
+*.sqlite-journal
+backend/prisma/migrations/**/migration_lock.toml
+
+# ── OS & System Files ──
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# ── IDEs, Editors & Tools ──
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*.sln
+*.njsproj
+*.ntvs*
+
+# ── AI Agents & System Temp Files ──
+.agents/
+.gemini/
+.system_generated/
+.tempmediaStorage/
+scratch/
+
