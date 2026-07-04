@@ -1,25 +1,55 @@
-﻿# 🏥 HealthCare Appointment & Follow-up Manager
+# 🏥 HealthCare Appointment & Follow-up Manager
 
 > **Full-stack production-grade healthcare scheduling platform** built with Node.js, React, PostgreSQL, Redis, and Google Gemini AI. Designed and developed as a placement project demonstrating real-world backend architecture, queue-driven asynchronous workflows, AI integration, and modern UI/UX engineering.
 
 ---
 
+## 🌐 Live Demo
+
+| | Link |
+|---|---|
+| 🖥️ **Frontend (Vercel)** | [hospital-management-pratyush-jaiswals-projects.vercel.app](https://hospital-management-pratyush-jaiswals-projects.vercel.app) |
+| ⚙️ **Backend API (Railway)** | [hospital-management-production-13fe.up.railway.app](https://hospital-management-production-13fe.up.railway.app) |
+| 🩺 **Health Check** | [/health](https://hospital-management-production-13fe.up.railway.app/health) |
+
+### 🔑 Demo Credentials
+
+| Role | Email | Password |
+|---|---|---|
+| 🔑 Admin | `admin@healthcare.local` | `Admin@1234` |
+| 🩺 Doctor (Cardiology) | `dr.sharma@healthcare.local` | `Doctor@1234` |
+| 🩺 Doctor (General Medicine) | `dr.mehta@healthcare.local` | `Doctor@1234` |
+| 🧑 Patient | `patient@healthcare.local` | `Patient@1234` |
+
+### 🚀 Deployment Stack
+
+| Service | Platform | Free Tier |
+|---|---|---|
+| Frontend | Vercel | ✅ Free |
+| Backend API | Railway | ✅ Free ($5/mo credit) |
+| BullMQ Worker | Railway | ✅ Free |
+| PostgreSQL | Neon | ✅ Free |
+| Redis | Upstash | ✅ Free |
+
+---
+
 ## 📋 Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Key Features](#key-features)
-3. [Tech Stack](#tech-stack)
-4. [System Architecture](#system-architecture)
-5. [Database Schema](#database-schema)
-6. [Security Design](#security-design)
-7. [AI Integration](#ai-integration)
-8. [API Reference](#api-reference)
-9. [Getting Started](#getting-started)
-10. [Seed Credentials](#seed-credentials)
-11. [Google Calendar Setup](#google-calendar-setup)
-12. [Project Structure](#project-structure)
-13. [Engineering Highlights](#engineering-highlights)
-14. [Known Limitations & Future Work](#known-limitations--future-work)
+1. [Live Demo](#-live-demo)
+2. [Project Overview](#project-overview)
+3. [Key Features](#key-features)
+4. [Tech Stack](#tech-stack)
+5. [System Architecture](#system-architecture)
+6. [Database Schema](#database-schema)
+7. [Security Design](#security-design)
+8. [AI Integration](#ai-integration)
+9. [API Reference](#api-reference)
+10. [Getting Started](#getting-started)
+11. [Seed Credentials](#seed-credentials)
+12. [Google Calendar Setup](#google-calendar-setup)
+13. [Project Structure](#project-structure)
+14. [Engineering Highlights](#engineering-highlights)
+15. [Known Limitations & Future Work](#known-limitations--future-work)
 
 ---
 
