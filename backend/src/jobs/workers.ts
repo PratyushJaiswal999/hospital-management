@@ -7,6 +7,7 @@ import { AppointmentStatus, NotificationStatus } from '@prisma/client';
 const connection = {
   host: process.env.REDIS_HOST || 'localhost',
   port: parseInt(process.env.REDIS_PORT || '6379', 10),
+  ...(process.env.REDIS_TLS === 'true' && { tls: {} }),
 };
 
 // ── 1. Hold-Expiry Worker ─────────────────────────────────────────────────

@@ -5,6 +5,7 @@ import { startWorkers } from './src/jobs/workers';
 const connection = {
   host: process.env.REDIS_HOST || 'localhost',
   port: parseInt(process.env.REDIS_PORT || '6379', 10),
+  ...(process.env.REDIS_TLS === 'true' && { tls: {} }),
 };
 
 console.log('⚙️  Starting BullMQ workers...');
