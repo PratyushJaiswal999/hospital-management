@@ -6,11 +6,7 @@
 
 ## 🌐 Live Demo
 
-| | Link |
-|---|---|
-| 🖥️ **Frontend (Vercel)** | [hospital-management-pratyush-jaiswals-projects.vercel.app](https://hospital-management-pratyush-jaiswals-projects.vercel.app) |
-| ⚙️ **Backend API (Railway)** | [hospital-management-production-13fe.up.railway.app](https://hospital-management-production-13fe.up.railway.app) |
-| 🩺 **Health Check** | [/health](https://hospital-management-production-13fe.up.railway.app/health) |
+🔗 **[https://hospital-management-pratyush-jaiswals-projects.vercel.app](https://hospital-management-pratyush-jaiswals-projects.vercel.app)**
 
 ### 🔑 Demo Credentials
 
